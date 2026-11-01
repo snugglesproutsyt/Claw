@@ -1,0 +1,6 @@
+{
+  "name": "Claw Master",
+  "description": "Arcade claw machine game featuring physics-based grabbing, claw collection, machine upgrades, and rare prize showcases.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
