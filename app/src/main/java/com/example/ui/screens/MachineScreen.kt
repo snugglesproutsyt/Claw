@@ -31,9 +31,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.example.data.repository.RedeemResult
 import com.example.ui.components.ArcadeCabinetCanvas
 import com.example.ui.components.ArcadeControls
 import com.example.ui.components.ArcadeTopBar
+import com.example.ui.components.RedeemCodeDialog
 import com.example.ui.components.WinPrizeDialog
 import com.example.ui.theme.ArcadeBackground
 import com.example.ui.theme.CyberCyan
@@ -58,6 +63,7 @@ fun MachineScreen(
     val confetti by viewModel.confetti.collectAsState()
     val statusMessage by viewModel.statusMessage.collectAsState()
 
+    var showRedeemDialog by remember { mutableStateOf(false) }
     val effectiveGrip = viewModel.repository.calculateEffectiveGripStrength()
 
     Box(
@@ -76,6 +82,10 @@ fun MachineScreen(
                 onClaimFreeCoins = {
                     val amount = viewModel.repository.claimFreeTokens()
                     viewModel.soundManager.playCoinInsert()
+                },
+                onOpenRedeem = {
+                    viewModel.soundManager.playButtonClick()
+                    showRedeemDialog = true
                 }
             )
 
@@ -161,6 +171,22 @@ fun MachineScreen(
                 rewardCoins = rewards.first,
                 rewardTickets = rewards.second,
                 onDismiss = { viewModel.dismissWinDialog() }
+            )
+        }
+
+        // Redeem Code Modal Dialog
+        if (showRedeemDialog) {
+            RedeemCodeDialog(
+                onDismiss = { showRedeemDialog = false },
+                onRedeem = { code ->
+                    val result = viewModel.repository.redeemPromoCode(code)
+                    if (result is RedeemResult.Success) {
+                        viewModel.soundManager.playUpgradePurchase()
+                    } else {
+                        viewModel.soundManager.playSlipMiss()
+                    }
+                    result
+                }
             )
         }
     }

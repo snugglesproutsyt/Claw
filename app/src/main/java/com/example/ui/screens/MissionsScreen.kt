@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assignment
+import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ConfirmationNumber
 import androidx.compose.material.icons.filled.Leaderboard
@@ -32,6 +33,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,7 +46,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.model.MissionItem
+import com.example.data.repository.RedeemResult
 import com.example.ui.components.ArcadeTopBar
+import com.example.ui.components.RedeemCodeDialog
 import com.example.ui.theme.ArcadeBackground
 import com.example.ui.theme.ArcadeGold
 import com.example.ui.theme.ArcadeSurface
@@ -65,6 +71,7 @@ fun MissionsScreen(
     val totalCoinsEarned by viewModel.repository.totalCoinsEarned.collectAsState()
     val equippedClaw = viewModel.repository.getEquippedClaw()
 
+    var showRedeemDialog by remember { mutableStateOf(false) }
     val winRate = if (totalPlays > 0) (totalWins.toFloat() / totalPlays.toFloat() * 100f).toInt() else 0
 
     Column(
@@ -80,6 +87,10 @@ fun MissionsScreen(
             onClaimFreeCoins = {
                 viewModel.repository.claimFreeTokens()
                 viewModel.soundManager.playCoinInsert()
+            },
+            onOpenRedeem = {
+                viewModel.soundManager.playButtonClick()
+                showRedeemDialog = true
             }
         )
 
@@ -138,6 +149,75 @@ fun MissionsScreen(
                 }
             }
 
+            // Redeem Code Banner
+            item {
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    color = ArcadeSurface,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(1.dp, ArcadeGold.copy(alpha = 0.5f), RoundedCornerShape(16.dp))
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(14.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(38.dp)
+                                    .clip(CircleShape)
+                                    .background(ArcadeGold.copy(alpha = 0.2f)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.CardGiftcard,
+                                    contentDescription = null,
+                                    tint = ArcadeGold,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                            Column {
+                                Text(
+                                    text = "Have a Promo Code?",
+                                    color = Color.White,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = "Redeem free coins, tickets & claws",
+                                    color = Color(0xFF94A3B8),
+                                    fontSize = 11.sp
+                                )
+                            }
+                        }
+
+                        Button(
+                            onClick = {
+                                viewModel.soundManager.playButtonClick()
+                                showRedeemDialog = true
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = ArcadeGold),
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier.testTag("missions_open_redeem_button")
+                        ) {
+                            Text(
+                                text = "REDEEM",
+                                color = Color.Black,
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Black
+                            )
+                        }
+                    }
+                }
+            }
+
             item {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -175,6 +255,21 @@ fun MissionsScreen(
             item {
                 Spacer(modifier = Modifier.height(80.dp))
             }
+        }
+
+        if (showRedeemDialog) {
+            RedeemCodeDialog(
+                onDismiss = { showRedeemDialog = false },
+                onRedeem = { code ->
+                    val result = viewModel.repository.redeemPromoCode(code)
+                    if (result is RedeemResult.Success) {
+                        viewModel.soundManager.playUpgradePurchase()
+                    } else {
+                        viewModel.soundManager.playSlipMiss()
+                    }
+                    result
+                }
+            )
         }
     }
 }

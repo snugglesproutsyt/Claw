@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "game": "Claw Master",
+  "active_codes": [
+    {
+      "code": "CLAW2026",
+      "reward_coins": 500,
+      "reward_tickets": 25,
+      "unlock_claw": null,
+      "description": "Welcome bonus! +500 Coins & +25 Tickets",
+      "status": "ACTIVE"
+    },
+    {
+      "code": "LUCKYDROP",
+      "reward_coins": 300,
+      "reward_tickets": 15,
+      "unlock_claw": null,
+      "description": "Lucky drop fortune! +300 Coins & +15 Tickets",
+      "status": "ACTIVE"
+    },
+    {
+      "code": "ARCADEVIP",
+      "reward_coins": 1000,
+      "reward_tickets": 50,
+      "unlock_claw": null,
+      "description": "VIP High Roller pass! +1,000 Coins & +50 Tickets",
+      "status": "ACTIVE"
+    },
+    {
+      "code": "FREECOINS",
+      "reward_coins": 250,
+      "reward_tickets": 0,
+      "unlock_claw": null,
+      "description": "Token dispenser cracked! +250 Coins",
+      "status": "ACTIVE"
+    },
+    {
+      "code": "CYBERBOOST",
+      "reward_coins": 500,
+      "reward_tickets": 20,
+      "unlock_claw": "claw_cyber",
+      "description": "Cyberpunk Overdrive! +500 Coins, +20 Tickets & Cyber Claw Unlocked!",
+      "status": "ACTIVE"
+    },
+    {
+      "code": "TITANPOWER",
+      "reward_coins": 2500,
+      "reward_tickets": 100,
+      "unlock_claw": null,
+      "description": "Quantum Singularity Unleashed! +2,500 Coins & +100 Tickets",
+      "status": "ACTIVE"
+    }
+  ]
+}

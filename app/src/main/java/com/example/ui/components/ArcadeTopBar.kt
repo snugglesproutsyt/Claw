@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.ConfirmationNumber
 import androidx.compose.material.icons.filled.MonetizationOn
 import androidx.compose.material3.Icon
@@ -52,6 +53,7 @@ fun ArcadeTopBar(
     tickets: Int,
     equippedClaw: ClawModel,
     onClaimFreeCoins: () -> Unit,
+    onOpenRedeem: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "marquee_bulbs")
@@ -204,6 +206,27 @@ fun ArcadeTopBar(
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold
                         )
+                    }
+
+                    // Redeem Gift Code Button
+                    onOpenRedeem?.let { openRedeem ->
+                        Box(
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clip(CircleShape)
+                                .background(ArcadeSurfaceHighlight)
+                                .border(1.dp, CyberCyan.copy(alpha = 0.6f), CircleShape)
+                                .clickable { openRedeem() }
+                                .testTag("open_redeem_dialog_button"),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.CardGiftcard,
+                                contentDescription = "Redeem Gift Code",
+                                tint = CyberCyan,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
                     }
                 }
             }

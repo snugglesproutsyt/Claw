@@ -452,4 +452,74 @@ class GameRepository(context: Context) {
         val total = (base + hydraulicBonus + damperBonus).coerceIn(35f, 99f)
         return total
     }
+
+    // Redeem Promo Codes
+    fun redeemPromoCode(inputCode: String): RedeemResult {
+        val code = inputCode.trim().uppercase()
+        val redeemedSet = prefs.getStringSet("redeemed_codes", emptySet()) ?: emptySet()
+        if (redeemedSet.contains(code)) {
+            return RedeemResult.AlreadyRedeemed(code)
+        }
+
+        val result = when (code) {
+            "CLAW2026" -> {
+                addCoins(500)
+                addTickets(25)
+                RedeemResult.Success(500, 25, null, "Welcome bonus! +500 Coins & +25 Tickets")
+            }
+            "LUCKYDROP" -> {
+                addCoins(300)
+                addTickets(15)
+                RedeemResult.Success(300, 15, null, "Lucky drop fortune! +300 Coins & +15 Tickets")
+            }
+            "ARCADEVIP" -> {
+                addCoins(1000)
+                addTickets(50)
+                RedeemResult.Success(1000, 50, null, "VIP High Roller pass! +1,000 Coins & +50 Tickets")
+            }
+            "FREECOINS" -> {
+                addCoins(250)
+                RedeemResult.Success(250, 0, null, "Token dispenser cracked! +250 Coins")
+            }
+            "CYBERBOOST" -> {
+                addCoins(500)
+                addTickets(20)
+                val cyberClaw = clawCatalog.find { it.id == "claw_cyber" }
+                val clawName = if (cyberClaw != null && !_unlockedClawIds.value.contains("claw_cyber")) {
+                    val updatedSet = _unlockedClawIds.value + "claw_cyber"
+                    _unlockedClawIds.value = updatedSet
+                    _equippedClawId.value = "claw_cyber"
+                    prefs.edit()
+                        .putStringSet("unlocked_claws", updatedSet)
+                        .putString("equipped_claw_id", "claw_cyber")
+                        .apply()
+                    cyberClaw.name
+                } else null
+                RedeemResult.Success(500, 20, clawName, "Cyberpunk Overdrive! +500 Coins, +20 Tickets & Cyber Claw Unlocked!")
+            }
+            "TITANPOWER" -> {
+                addCoins(2500)
+                addTickets(100)
+                RedeemResult.Success(2500, 100, null, "Quantum Singularity Unleashed! +2,500 Coins & +100 Tickets")
+            }
+            else -> RedeemResult.InvalidCode(code)
+        }
+
+        if (result is RedeemResult.Success) {
+            prefs.edit().putStringSet("redeemed_codes", redeemedSet + code).apply()
+        }
+        return result
+    }
 }
+
+sealed class RedeemResult {
+    data class Success(
+        val coins: Int,
+        val tickets: Int,
+        val unlockedClawName: String? = null,
+        val message: String
+    ) : RedeemResult()
+    data class AlreadyRedeemed(val code: String) : RedeemResult()
+    data class InvalidCode(val code: String) : RedeemResult()
+}
+
