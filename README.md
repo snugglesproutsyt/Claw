@@ -1,10 +1,29 @@
 # 🕹️ Claw Master - Arcade Claw Machine Game
 
-**Claw Master** is a vibrant, retro-futuristic arcade claw machine game built with **Kotlin** and **Jetpack Compose**. Players control the motorized carriage, aim for prized plushies and gems, upgrade machine mechanics to increase win probabilities, and purchase powerful custom claws.
+<p align="center">
+  <img src="./docs/media/hero_banner.png" alt="Claw Master Banner" width="100%"/>
+</p>
 
-![Android 15](https://img.shields.io/badge/Android-15%20(API%2036)-3DDC84?logo=android&logoColor=white)
-![Kotlin](https://img.shields.io/badge/Kotlin-2.0+-7F52FF?logo=kotlin&logoColor=white)
-![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-M3-4285F4?logo=jetpackcompose&logoColor=white)
+<p align="center">
+  <a href="https://developer.android.com"><img src="https://img.shields.io/badge/Android-15%20(API%2036)-3DDC84?logo=android&logoColor=white" alt="Android 15"/></a>
+  <a href="https://kotlinlang.org"><img src="https://img.shields.io/badge/Kotlin-2.0+-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin"/></a>
+  <a href="https://developer.android.com/jetpack/compose"><img src="https://img.shields.io/badge/Jetpack%20Compose-M3-4285F4?logo=jetpackcompose&logoColor=white" alt="Jetpack Compose"/></a>
+  <a href="./apk/claw-master-debug.apk"><img src="https://img.shields.io/badge/Download-APK%20(22%20MB)-F59E0B?logo=googleplay&logoColor=white" alt="Download APK"/></a>
+</p>
+
+**Claw Master** is a vibrant, retro-futuristic arcade claw machine game built with **Kotlin** and **Jetpack Compose**. Players control a motorized crane gantry, aim for coveted plushies and gems, upgrade machine mechanics to increase win probabilities, and collect powerful specialized claws.
+
+---
+
+## 📽️ Live Gameplay Preview
+
+<p align="center">
+  <img src="./docs/media/gameplay_preview.gif" alt="Claw Master Live Gameplay Animation" width="460"/>
+  <br/>
+  <em>Live Gameplay Demo: Laser targeting, claw descent, prize grab, chute return, and win celebration!</em>
+  <br/>
+  🎥 <strong><a href="./docs/media/gameplay_demo.mp4">Watch Full HD MP4 Video Demonstration</a></strong> • 📸 <strong><a href="./MEDIA.md">View Complete Media Gallery</a></strong>
+</p>
 
 ---
 
@@ -25,19 +44,32 @@ You can download and install the latest pre-compiled debug APK directly from thi
 
 Check out **[REDEEM.md](./REDEEM.md)** or **[redeem_codes.json](./redeem_codes.json)** for active promo codes!
 
-| Promo Code | Rewards |
-| :--- | :--- |
-| `CLAW2026` | **+500 Coins** + **25 Tickets** |
-| `LUCKYDROP` | **+300 Coins** + **15 Tickets** |
-| `ARCADEVIP` | **+1,000 Coins** + **50 Tickets** |
-| `CYBERBOOST` | **+500 Coins** + **20 Tickets** + **Cyberpunk Neo Claw Unlocked!** |
-| `FREECOINS` | **+250 Coins** |
-| `TITANPOWER` | **+2,500 Coins** + **100 Tickets** |
+| Promo Code | Rewards | Description |
+| :--- | :--- | :--- |
+| `CLAW2026` | **+500 Coins** + **25 Tickets** | 2026 Arcade Welcome Gift |
+| `LUCKYDROP` | **+300 Coins** + **15 Tickets** | Fortune Drop Boost |
+| `ARCADEVIP` | **+1,000 Coins** + **50 Tickets** | High Roller VIP Pass |
+| `CYBERBOOST` | **+500 Coins** + **20 Tickets** + **Cyber Claw** | Unlocks the Cyberpunk Neo Claw! |
+| `FREECOINS` | **+250 Coins** | Quick token refill |
+| `TITANPOWER` | **+2,500 Coins** + **100 Tickets** | Quantum Singularity surge |
 
 ### How to Redeem:
 1. Tap the **Gift Box (`🎁`)** on the top marquee bar or the **Redeem** button in the **Quests** tab.
 2. Enter any active code.
 3. Enjoy instant coins, tickets, and unlocked claws!
+
+---
+
+## 📸 Screenshots Gallery
+
+<p align="center">
+  <img src="./docs/media/claw_machine_gameplay.png" alt="Cabinet Gameplay" width="24%"/>
+  <img src="./docs/media/claw_arsenal_showcase.png" alt="Claw Arsenal" width="24%"/>
+  <img src="./docs/media/machine_upgrades_workshop.png" alt="Machine Upgrades" width="24%"/>
+  <img src="./docs/media/prize_collection_trophy.png" alt="Prize Showcase" width="24%"/>
+</p>
+
+*From left to right: (1) Main Arcade Cabinet with Laser Reticle, (2) Claw Arsenal Shop, (3) Machine Workshop Upgrades, (4) Prize Showcase & Trophy Room.*
 
 ---
 
